@@ -1,11 +1,15 @@
 import unittest
 import timeit
 from conta_bancaria import ContaBancaria, ValorInvalidoError, SaldoInsuficienteError
+from app import app
+import time
 
 class TestContaBancaria(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        cls.client = app.test_client()
+        cls.start_time = time.time()
         print("\nTestes da Conta Bancária...\n")
 
     def setUp(self):
@@ -56,12 +60,30 @@ class TestContaBancaria(unittest.TestCase):
         tempo = timeit.timeit(lambda: self.conta1.transferir(self.conta2, 1), number=1000)
         self.assertLess(tempo, 2.0, "Transferência demasiado lenta")
 
-    def test_consultar_saldo(self):
-        self.assertEqual(self.conta1.consultar_saldo(), 200) #Erro de proposito
+    """def test_consultar_saldo(self):
+        self.assertEqual(self.conta1.consultar_saldo(), 200)""" #Erro de proposito
+    
+    def test_saldo_api(self):
+        response = self.client.get('/saldo/joao')
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertEqual(data['titular'], 'Joao')
+        self.assertIn('saldo', data)
+
+    def test_transferir_api(self):
+        response = self.client.post('/transferir', json={
+            'origem': 'joao',
+            'destino': 'maria',
+            'valor': 100
+        })
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertEqual(data['mensagem'], 'Transferência concluída')
 
     @classmethod
     def tearDownClass(cls):
-        print("\n✅ Testes finalizados com sucesso!\n")
+        duracao = time.time() - cls.start_time
+        print(f"\n✅ Testes finalizados com sucesso! Tempo total: {duracao:.2f} segundos\n")
 
 
 if __name__ == "__main__":
