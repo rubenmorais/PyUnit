@@ -5,6 +5,12 @@ import time
 from conta_bancaria import ContaBancaria, ValorInvalidoError, SaldoInsuficienteError
 from app import app
 
+def setUpModule():
+    print("\n=== Início dos testes do módulo ===\n")
+
+def tearDownModule():
+    print("\n=== Fim dos testes do módulo ===\n")
+
 class TestContaBancaria(unittest.TestCase):
 
     @classmethod
@@ -74,6 +80,17 @@ class TestContaBancaria(unittest.TestCase):
             self.assertLess(tempo, 2.0, "Transferência demasiado lenta")
         finally:
             logging.disable(logging.NOTSET)  
+    
+    @unittest.skip("Funcionalidade ainda não implementada: depósito em moeda estrangeira")
+    def test_deposito_em_moeda_estrangeira(self):
+        """Teste futuro para depósitos em moeda estrangeira"""
+        self.conta1.depositar_estrangeiro(100, moeda="USD")  # método ainda não existe
+        self.assertEqual(self.conta1.consultar_saldo(), 1100)  # valor convertido (exemplo)
+
+    @unittest.expectedFailure
+    def test_transferencia_para_none(self):
+        """Bug conhecido: transferência para None não lança erro como devia"""
+        self.conta2.transferir(None, 100)
 
     
     """def test_consultar_saldo(self): 
