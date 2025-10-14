@@ -57,7 +57,7 @@ class TestContaBancaria(unittest.TestCase):
         self.assertLess(tempo, 2.0, "Transferência demasiado lenta")
 
     def test_consultar_saldo(self):
-        self.assertEqual(self.conta1.consultar_saldo(), 1000) #Erro de proposito
+        self.assertEqual(self.conta1.consultar_saldo(), 200) #Erro de proposito
 
     @classmethod
     def tearDownClass(cls):
