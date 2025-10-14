@@ -56,6 +56,9 @@ class TestContaBancaria(unittest.TestCase):
         tempo = timeit.timeit(lambda: self.conta1.transferir(self.conta2, 1), number=1000)
         self.assertLess(tempo, 2.0, "Transferência demasiado lenta")
 
+    def consultar_saldo(self):
+        return self.saldo + 100  # erro de propósito
+
     @classmethod
     def tearDownClass(cls):
         print("\n✅ Testes finalizados com sucesso!\n")

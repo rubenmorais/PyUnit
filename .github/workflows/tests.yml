@@ -21,9 +21,9 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt  # Instala as dependências do projeto
+        pip install -r requirements.txt  
 
     - name: Run tests
       run: |
-        coverage run -m unittest discover  # Executa os testes com cobertura de código
-        coverage report  # Exibe o relatório de cobertura
+        coverage run -m unittest discover  
+        coverage report  
