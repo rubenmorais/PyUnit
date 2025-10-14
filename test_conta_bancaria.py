@@ -39,6 +39,10 @@ class TestContaBancaria(unittest.TestCase):
         self.conta1.transferir(self.conta2, 300)
         self.assertEqual(self.conta1.consultar_saldo(), 700)
         self.assertEqual(self.conta2.consultar_saldo(), 800)
+
+    def test_transferencia_para_mesma_conta(self):
+        with self.assertRaises(ValorInvalidoError):
+            self.conta1.transferir(self.conta1, 100)
     
     def test_transferir_saldo_insuficiente(self):
         with self.assertRaises(SaldoInsuficienteError):

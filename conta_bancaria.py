@@ -18,6 +18,8 @@ class ContaBancaria:
         self.saldo -= valor
 
     def transferir(self, conta_destino, valor):
+        if conta_destino == self:
+            raise ValorInvalidoError("Não é possível transferir para a mesma conta.")
         if valor <= 0:
             raise ValorInvalidoError("O valor da transferência deve ser positivo.")
         if valor > self.saldo:
@@ -30,4 +32,13 @@ class ContaBancaria:
 
 
 
-# python -m unittest test_conta_bancaria.py
+"""
+
+python -m unittest test_conta_bancaria.py
+
+
+pip install coverage
+coverage run -m unittest discover
+coverage html
+
+"""
