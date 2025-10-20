@@ -73,7 +73,7 @@ class TestContaBancaria(unittest.TestCase):
             self.conta1.transferir(self.conta2, -100)
 
     def test_transferencia_performance(self):
-        """Testa performance da transferência (1000 vezes em < 2s), sem logs"""
+        """Testa performance da transferência (1000 vezes em < 2s)"""
         logging.disable(logging.CRITICAL)  
         try:
             tempo = timeit.timeit(lambda: self.conta1.transferir(self.conta2, 1), number=1000)
@@ -93,8 +93,8 @@ class TestContaBancaria(unittest.TestCase):
         self.conta2.transferir(None, 100)
 
     
-    """def test_consultar_saldo(self): 
-        self.assertEqual(self.conta1.consultar_saldo(), 200)""" #Erro de proposito
+    def test_consultar_saldo(self): 
+        self.assertEqual(self.conta1.consultar_saldo(), 200) #Erro de proposito
 
     # --- Testes da API Flask ---
 
