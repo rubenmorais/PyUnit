@@ -93,8 +93,8 @@ class TestContaBancaria(unittest.TestCase):
         self.conta2.transferir(None, 100)
 
     
-    """def test_consultar_saldo(self): 
-        self.assertEqual(self.conta1.consultar_saldo(), 200)""" #Erro de proposito
+    def test_consultar_saldo(self): 
+        self.assertEqual(self.conta1.consultar_saldo(), 200) #Erro de proposito
 
     # --- Testes da API Flask ---
 
